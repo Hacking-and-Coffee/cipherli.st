@@ -22,6 +22,7 @@
       document.getElementById("apacheconfig").innerHTML += 'SSLProtocol All -SSLv2 -SSLv3\n';
       document.getElementById("apacheconfig").innerHTML += 'SSLHonorCipherOrder On\n';
       document.getElementById("apacheconfig").innerHTML += 'Header always set Strict-Transport-Security "max-age=63072000; <i>includeSubdomains</i>; preload"\n';
+	  document.getElementById("nginxconfig").innerHTML += '# \'X-Frame-Options\' may need to be set to \'SAMEORIGIN\' rather than \'DENY\' if your server needs frames\n'
       document.getElementById("apacheconfig").innerHTML += 'Header always set X-Frame-Options DENY\n';
       document.getElementById("apacheconfig").innerHTML += 'Header always set X-Content-Type-Options nosniff\n';
       document.getElementById("apacheconfig").innerHTML += '# Requires Apache >= 2.4 \n';
@@ -37,6 +38,7 @@
       document.getElementById("nginxconfig").innerHTML += 'ssl_session_cache shared:SSL:10m;\n';
       document.getElementById("nginxconfig").innerHTML += '# \'always\' requires nginx >= 1.7.5, see http://nginx.org/en/docs/http/ngx_http_headers_module.html#add_header\n'
       document.getElementById("nginxconfig").innerHTML += 'add_header Strict-Transport-Security "max-age=63072000; <i>includeSubdomains</i>; preload" always;\n';
+	  document.getElementById("nginxconfig").innerHTML += '# \'X-Frame-Options\' may need to be set to \'SAMEORIGIN\' rather than \'DENY\' if your server needs frames\n'
       document.getElementById("nginxconfig").innerHTML += 'add_header X-Frame-Options DENY always;\n';
       document.getElementById("nginxconfig").innerHTML += 'add_header X-Content-Type-Options nosniff always;\n';
       document.getElementById("nginxconfig").innerHTML += 'ssl_session_tickets off;\n';
@@ -76,6 +78,7 @@ SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
 SSLProtocol All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
 SSLHonorCipherOrder On
 Header always set Strict-Transport-Security "max-age=63072000; <i>includeSubDomains</i>; preload"
+# X-Frame-Options may need to be set to 'SAMEORIGIN' rather than 'DENY' if your server needs frames
 Header always set X-Frame-Options DENY
 Header always set X-Content-Type-Options nosniff
 # Requires Apache >= 2.4
@@ -101,12 +104,14 @@ ssl_session_tickets off; # Requires nginx >= 1.5.9
 ssl_stapling on; # Requires nginx >= 1.3.7
 ssl_stapling_verify on; # Requires nginx => 1.3.7
 resolver <i>$DNS-IP-1 $DNS-IP-2</i> valid=300s;
-resolver_timeout 5s; 
-add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
-add_header X-Frame-Options DENY;
-add_header X-Content-Type-Options nosniff;
-add_header X-XSS-Protection "1; mode=block";
-add_header X-Robots-Tag none; 
+resolver_timeout 5s;
+# 'always' requires nginx >= 1.7.5, see http://nginx.org/en/docs/http/ngx_http_headers_module.html#add_header 
+add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+# 'X-Frame-Options' may need to be set to 'SAMEORIGIN' rather than 'DENY' if your server needs frames
+add_header X-Frame-Options DENY always;
+add_header X-Content-Type-Options nosniff always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header X-Robots-Tag none always; 
                 </pre><br />
             </div>
             <div class="col-md-4 column">
