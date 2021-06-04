@@ -9,3 +9,5 @@ Please send PRs to this repo ( Hacking-and-Coffee/cipherli.st ) unless Raymii co
 I'd like to thank Raymii for creating this page; as a sysadmin on the side from my red team work, it has been invaluable on quickly getting strong endpoints up and running with various daemons, and providing reasonably secure configurations when dealing with some older clients as an option.
 
 See [https://cipherlist.hackingand.coffee](https://cipherlist.hackingand.coffee)
+
+This has been archived since the service was brought back by another maintainer, and my own copy has not been running in some time: [https://cipherlist.eu/](https://cipherlist.eu/)
